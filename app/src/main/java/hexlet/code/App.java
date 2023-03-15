@@ -4,10 +4,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.security.MessageDigest;
 import java.util.concurrent.Callable;
 @Command(name = "gendiff",
         mixinStandardHelpOptions = true,
@@ -28,7 +24,8 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        return 0;
+        System.out.println(Differ.generate(filePath1, filePath2));
+        return 1;
     }
 
     public static void main(String[] args) {
