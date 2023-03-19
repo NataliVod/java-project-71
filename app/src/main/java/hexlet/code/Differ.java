@@ -7,8 +7,7 @@ import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -18,37 +17,27 @@ public class Differ {
         Map<String, String> map1 = getData(filePath1);
         Map<String, String> map2 = getData(filePath2);
         List<Map<String, String>> diff = genDiff(map1, map2);
-        StringBuilder result =  new StringBuilder();
-        result.append("{\n");
+        String result =  "{\n";
         for (var map:diff) {
             switch (map.get("changeType")) {
-                case "deleted" -> result.append("  - ").append(map.get("key")).append(": ")
-                        .append(map.get("oldValue")).append("\n");
-                case "added" -> result.append("  + ").append(map.get("key")).append(": ")
-                        .append(map.get("newValue")).append("\n");
-                case "changed" -> result.append("  - ").append(map.get("key")).append(": ")
-                        .append(map.get("oldValue")).append("\n")
-                        .append("  + ").append(map.get("key")).append(": ")
-                        .append(map.get("newValue")).append("\n");
-                case "unchanged" -> result.append("    ").append(map.get("key")).append(": ")
-                        .append(map.get("oldValue")).append("\n");
+                case "deleted" -> result += "  - " + map.get("key") + ": " + map.get("oldValue") + "\n";
+                case "added" -> result += "  + " + map.get("key") + ": " + map.get("newValue") + "\n";
+                case "changed" -> result += "  - " + map.get("key") + ": " + map.get("oldValue") + "\n"
+                                          + "  + " + map.get("key") + ": " + map.get("newValue") + "\n";
+                case "unchanged" -> result += "    " + map.get("key") + ": " + map.get("oldValue") + "\n";
                 default -> throw new Exception("");
             }
         }
-        result.append("}");
+        result += "}";
 
-        return result.toString();
+        return result;
     }
 
     private static Map<String, String> getData(String filePath) throws Exception {
+        String fileType = filePath.substring(filePath.indexOf(".")+1);
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        String json = Files.readString(path);
-        return parse(json);
-    }
-    private static Map<String, String> parse(String json) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> data = mapper.readValue(json, new TypeReference<Map<String, String>>() { });
-        return data;
+        String content = Files.readString(path);
+        return Parser.parse(content, fileType);
     }
 
     private static List<Map<String, String>> genDiff(Map<String, String> map1, Map<String, String> map2) {
