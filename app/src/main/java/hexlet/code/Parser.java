@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, String> parse(String content, String fileType) throws Exception {
+    public static Map<String, Object> parse(String content, String fileType) throws Exception {
 
         ObjectMapper mapper;
         switch (fileType) {
@@ -19,9 +19,7 @@ public class Parser {
 
             default -> throw new IllegalStateException("Unexpected type: " + fileType);
         }
-        Map<String, String> data = mapper.readValue(content, new TypeReference<Map<String, String>>() { });
-        return data;
-
+        return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
     }
 
 
