@@ -11,10 +11,12 @@ public class Plain {
             String key = (String) map.get("key");
 
             switch (map.get("changeType").toString()) {
-                case "deleted" -> result += "Property '" + key + "' was removed" + "\n";
+                case "deleted" ->
+                        result += "Property '" + key + "' was removed" + "\n";
                 case "added" ->
                         result += "Property '" + key + "' was added with value: " + getPlainValue(map.get("newValue")) + "\n";
-                case "changed" -> result += "Property '" + key + "' was updated. From " + getPlainValue(map.get("oldValue"))
+                case "changed" ->
+                        result += "Property '" + key + "' was updated. From " + getPlainValue(map.get("oldValue"))
                         + " to " + getPlainValue(map.get("newValue")) + "\n";
                 case "unchanged" -> {
                 }
