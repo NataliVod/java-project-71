@@ -15,14 +15,19 @@ public class Parser {
 
         ObjectMapper mapper;
         switch (fileType) {
-            case (JSON) ->
-                    mapper = new ObjectMapper();
-            case (YAML) ->
-                    mapper = new YAMLMapper();
+            case (JSON) -> {
+                mapper = new ObjectMapper();
+                return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
+            }
+            case (YAML) -> {
+                mapper = new YAMLMapper();
+                return mapper.readValue(content, new TypeReference<Map<String, Object>>() {
+                });
+            }
 
             default -> throw new IllegalStateException("Unexpected type: " + fileType);
         }
-        return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
+
     }
 
 

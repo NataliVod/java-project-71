@@ -1,11 +1,16 @@
 package hexlet.code;
 
-import java.util.*;
-
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
@@ -25,7 +30,7 @@ public class Differ {
     }
 
     public static Map<String, Object> getData(String filePath) throws Exception {
-        String fileType = filePath.substring(filePath.indexOf(".")+1);
+        String fileType = filePath.substring(filePath.indexOf(".") + 1);
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
 
         if (Files.notExists(path) || Files.isDirectory(path)) {
@@ -59,12 +64,14 @@ public class Differ {
                 diffMap.put("newValue", newValue);
                 diffMap.put("changeType", "added");
 
-            } else if ((oldKeySet.contains(key) && newKeySet.contains(key)) && !(Objects.deepEquals(oldValue,newValue))) {
+            } else if ((oldKeySet.contains(key) && newKeySet.contains(key))
+                    && !(Objects.deepEquals(oldValue, newValue))) {
                 diffMap.put("oldValue", oldValue);
                 diffMap.put("newValue", newValue);
                 diffMap.put("changeType", "changed");
 
-            } else if ((oldKeySet.contains(key) && newKeySet.contains(key)) && (Objects.deepEquals(oldValue,newValue)))  {
+            } else if ((oldKeySet.contains(key) && newKeySet.contains(key))
+                    && (Objects.deepEquals(oldValue, newValue)))  {
                 diffMap.put("oldValue", oldValue);
                 diffMap.put("changeType", "unchanged");
             }

@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
         mixinStandardHelpOptions = true,
         version = "1.0",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath1",
             index = "0",
             description = "path to first file")
@@ -23,7 +23,7 @@ public class App implements Callable<Integer> {
     private String format;
 
     @Override
-    public Integer call() throws Exception {
+    public  Integer call() throws Exception {
         System.out.println(Differ.generate(filePath1, filePath2, format));
         return 1;
     }
