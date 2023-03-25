@@ -9,15 +9,25 @@ import java.nio.file.Files;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
-        Map<String, Object> map1 = getData(filePath1);
-        Map<String, Object> map2 = getData(filePath2);
-        List<Map<String, Object>> diff = genDiff(map1, map2);
-        return Formatter.stylish(diff);
+        String format = "stylish";
+        Map<String, Object> oldMap = getData(filePath1);
+        Map<String, Object> newMap = getData(filePath2);
+        List<Map<String, Object>> diff = genDiff(oldMap, newMap);
+        return Formatter.getFormatedString(diff, format);
+    }
+
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
+        Map<String, Object> oldMap = getData(filePath1);
+        Map<String, Object> newMap = getData(filePath2);
+        List<Map<String, Object>> diff = genDiff(oldMap, newMap);
+        return Formatter.getFormatedString(diff, format);
+
     }
 
     public static Map<String, Object> getData(String filePath) throws Exception {
         String fileType = filePath.substring(filePath.indexOf(".")+1);
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
+
         if (Files.notExists(path) || Files.isDirectory(path)) {
             throw new Exception("wrong file path");
         }

@@ -8,13 +8,16 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.Map;
 
 public class Parser {
+    private static final String JSON = "json";
+    private static final String YAML = "yml";
+
     public static Map<String, Object> parse(String content, String fileType) throws Exception {
 
         ObjectMapper mapper;
         switch (fileType) {
-            case ("json") ->
+            case (JSON) ->
                     mapper = new ObjectMapper();
-            case ("yml") ->
+            case (YAML) ->
                     mapper = new YAMLMapper();
 
             default -> throw new IllegalStateException("Unexpected type: " + fileType);
