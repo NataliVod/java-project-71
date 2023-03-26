@@ -9,11 +9,11 @@ public final class Diffs {
     private Object oldValue;
     private Object newValue;
 
-    public Diffs(String changeType1, Object oldValue1, Object newValue1) {
-        this.changeType = changeType1;
-        this.oldValue = oldValue1;
-        this.newValue = newValue1;
-    }  //тут линтер ругался на одинаковые имена, странно
+    public Diffs(String changeType, Object oldValue, Object newValue) {
+        this.changeType = changeType;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+    }
 
     public Diffs(String changeType1, Object someValue) throws Exception {
         this.changeType = changeType1;
