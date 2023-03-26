@@ -18,10 +18,7 @@ import static hexlet.code.Diffs.UNCHANGED;
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
         String format = "stylish";
-        Map<String, Object> oldMap = getData(filePath1);
-        Map<String, Object> newMap = getData(filePath2);
-        Map<String, Diffs> diff = genDiff(oldMap, newMap);
-        return Formatter.getFormatedString(diff, format);
+        return generate(filePath1, filePath2, format);
     }
 
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
@@ -45,15 +42,15 @@ public class Differ {
 
     private static Map<String, Diffs> genDiff(Map<String, Object> oldMap, Map<String, Object> newMap) throws Exception {
         Map<String, Diffs> result = new TreeMap<>();
-        Set<String> generalKeySet = new TreeSet<>();
+        Set<String> overallKeys = new TreeSet<>();
 
         Set<String> oldKeySet = oldMap.keySet();
         Set<String> newKeySet = newMap.keySet();
 
-        generalKeySet.addAll(oldKeySet);
-        generalKeySet.addAll(newKeySet);
+        overallKeys.addAll(oldKeySet);
+        overallKeys.addAll(newKeySet);
 
-        for (String key : generalKeySet) {
+        for (String key : overallKeys) {
             Object oldValue = oldMap.get(key);
             Object newValue = newMap.get(key);
 

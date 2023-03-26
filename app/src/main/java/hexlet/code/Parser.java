@@ -21,8 +21,7 @@ public class Parser {
             }
             case (YAML) -> {
                 mapper = new YAMLMapper();
-                return mapper.readValue(content, new TypeReference<Map<String, Object>>() {
-                });
+                return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
             }
 
             default -> throw new IllegalStateException("Unexpected type: " + fileType);

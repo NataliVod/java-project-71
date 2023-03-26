@@ -62,7 +62,7 @@ class AppTest {
             + "{\"setting2\":{\"changeType\":\"changed\",\"oldValue\":200,\"newValue\":300}}\n"
             + "{\"setting3\":{\"changeType\":\"changed\",\"oldValue\":true,\"newValue\":\"none\"}}";
     @Test
-    void testJsonDifferGenerateStylish() throws Exception {
+    void testJsonDifferGenerateDefault() throws Exception {
         String path1 = "src/test/resources/fixtures/file1.json";
         String path2 = "src/test/resources/fixtures/file2.json";
         String result = Differ.generate(path1, path2);
@@ -70,10 +70,26 @@ class AppTest {
     }
 
     @Test
-    void testYmlDifferGenerateStylish() throws Exception {
+    void testYmlDifferGenerateDefault() throws Exception {
         String path1 = "src/test/resources/fixtures/file1.yml";
         String path2 = "src/test/resources/fixtures/file2.yml";
         String result = Differ.generate(path1, path2);
+        assertThat(result).isEqualTo(stylishExpected);
+    }
+
+    @Test
+    void testJsonDifferGenerateStylish() throws Exception {
+        String path1 = "src/test/resources/fixtures/file1.json";
+        String path2 = "src/test/resources/fixtures/file2.json";
+        String result = Differ.generate(path1, path2, "stylish");
+        assertThat(result).isEqualTo(stylishExpected);
+    }
+
+    @Test
+    void testYmlDifferGenerateStylish() throws Exception {
+        String path1 = "src/test/resources/fixtures/file1.yml";
+        String path2 = "src/test/resources/fixtures/file2.yml";
+        String result = Differ.generate(path1, path2, "stylish");
         assertThat(result).isEqualTo(stylishExpected);
     }
 
