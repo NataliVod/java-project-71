@@ -2,6 +2,10 @@ package hexlet.code.formatters;
 
 import hexlet.code.Diffs;
 import java.util.Map;
+import static hexlet.code.Diffs.ADDED;
+import static hexlet.code.Diffs.CHANGED;
+import static hexlet.code.Diffs.DELETED;
+import static hexlet.code.Diffs.UNCHANGED;
 
 public class Stylish {
     public static String getStylishString(Map<String, Diffs> diff) throws Exception {
@@ -14,18 +18,18 @@ public class Stylish {
             var changeType = changes.getChangeType();
 
             switch (changeType) {
-                case "deleted" -> result.append("  - ").append(key).append(": ")
+                case DELETED -> result.append("  - ").append(key).append(": ")
                         .append(changes.getOldValue());
 
-                case "added" -> result.append("  + ").append(key).append(": ")
+                case ADDED -> result.append("  + ").append(key).append(": ")
                         .append(changes.getNewValue());
 
-                case "changed" -> result.append("  - ").append(key).append(": ")
+                case CHANGED -> result.append("  - ").append(key).append(": ")
                         .append(changes.getOldValue()).append("\n")
                         .append("  + ").append(key).append(": ")
                         .append(changes.getNewValue());
 
-                case "unchanged" -> result.append("    ").append(key).append(": ")
+                case UNCHANGED -> result.append("    ").append(key).append(": ")
                         .append(changes.getOldValue());
 
                 default -> throw new Exception("wrong change type" + key);

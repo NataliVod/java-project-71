@@ -4,6 +4,10 @@ import hexlet.code.Diffs;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import static hexlet.code.Diffs.ADDED;
+import static hexlet.code.Diffs.CHANGED;
+import static hexlet.code.Diffs.DELETED;
+import static hexlet.code.Diffs.UNCHANGED;
 
 public class Plain {
     public static String getPlainString(Map<String, Diffs> diff) throws Exception {
@@ -15,19 +19,19 @@ public class Plain {
             var changeType = changes.getChangeType();
 
             switch (changeType) {
-                case "deleted" ->
+                case DELETED ->
                         result.append("Property '").append(key).append("' was removed").append("\n");
 
-                case "added" ->
+                case ADDED ->
                         result.append("Property '").append(key).append("' was added with value: ")
                                 .append(getPlainValue(changes.getNewValue())).append("\n");
 
-                case "changed" ->
+                case CHANGED ->
                         result.append("Property '").append(key).append("' was updated. From ")
                                 .append(getPlainValue(changes.getOldValue())).append(" to ")
                                 .append(getPlainValue(changes.getNewValue())).append("\n");
 
-                case "unchanged" -> {
+                case UNCHANGED -> {
                 }
                 default -> throw new Exception("wrong change type" + key);
             }
@@ -41,10 +45,12 @@ public class Plain {
         String result;
         if (value instanceof String) {
             result = "'" + value + "'";
+
         } else if ((value instanceof Collection<?>)
                 || (value instanceof Arrays)
                 || (value instanceof Map<?, ?>)) {
             result = "[complex value]";
+
         } else {
             result = value + "";
         }
