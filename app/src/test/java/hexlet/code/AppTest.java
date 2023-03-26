@@ -63,48 +63,48 @@ class AppTest {
             + "{\"setting3\":{\"changeType\":\"changed\",\"oldValue\":true,\"newValue\":\"none\"}}";
     @Test
     void testJsonDifferGenerateStylish() throws Exception {
-        String path1 = "src/test/resources/file1.json";
-        String path2 = "src/test/resources/file2.json";
+        String path1 = "src/test/resources/fixtures/file1.json";
+        String path2 = "src/test/resources/fixtures/file2.json";
         String result = Differ.generate(path1, path2);
         assertThat(result).isEqualTo(stylishExpected);
     }
 
     @Test
     void testYmlDifferGenerateStylish() throws Exception {
-        String path1 = "src/test/resources/file1.yml";
-        String path2 = "src/test/resources/file2.yml";
+        String path1 = "src/test/resources/fixtures/file1.yml";
+        String path2 = "src/test/resources/fixtures/file2.yml";
         String result = Differ.generate(path1, path2);
         assertThat(result).isEqualTo(stylishExpected);
     }
 
     @Test
     void testJsonDifferGeneratePlain() throws Exception {
-        String path1 = "src/test/resources/file1.json";
-        String path2 = "src/test/resources/file2.json";
+        String path1 = "src/test/resources/fixtures/file1.json";
+        String path2 = "src/test/resources/fixtures/file2.json";
         String result = Differ.generate(path1, path2, "plain");
         assertThat(result).isEqualTo(plainExpected);
     }
 
     @Test
     void testYmlDifferGeneratePlain() throws Exception {
-        String path1 = "src/test/resources/file1.yml";
-        String path2 = "src/test/resources/file2.yml";
+        String path1 = "src/test/resources/fixtures/file1.yml";
+        String path2 = "src/test/resources/fixtures/file2.yml";
         String result = Differ.generate(path1, path2, "plain");
         assertThat(result).isEqualTo(plainExpected);
     }
 
     @Test
     void testJsonDifferGenerateJson() throws Exception {
-        String path1 = "src/test/resources/file1.json";
-        String path2 = "src/test/resources/file2.json";
+        String path1 = "src/test/resources/fixtures/file1.json";
+        String path2 = "src/test/resources/fixtures/file2.json";
         String result = Differ.generate(path1, path2, "json");
         assertThat(result).isEqualTo(jsonExpected);
     }
 
     @Test
     void testYmlDifferGenerateJson() throws Exception {
-        String path1 = "src/test/resources/file1.yml";
-        String path2 = "src/test/resources/file2.yml";
+        String path1 = "src/test/resources/fixtures/file1.yml";
+        String path2 = "src/test/resources/fixtures/file2.yml";
         String result = Differ.generate(path1, path2, "json");
         assertThat(result).isEqualTo(jsonExpected);
     }
