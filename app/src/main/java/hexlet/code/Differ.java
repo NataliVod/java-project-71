@@ -4,27 +4,30 @@ package hexlet.code;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
+
+import static hexlet.code.Diffs.ADDED;
+import static hexlet.code.Diffs.CHANGED;
+import static hexlet.code.Diffs.DELETED;
+import static hexlet.code.Diffs.UNCHANGED;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
         String format = "stylish";
         Map<String, Object> oldMap = getData(filePath1);
         Map<String, Object> newMap = getData(filePath2);
-        List<Map<String, Object>> diff = genDiff(oldMap, newMap);
+        Map<String, Diffs> diff = genDiff(oldMap, newMap);
         return Formatter.getFormatedString(diff, format);
     }
 
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
         Map<String, Object> oldMap = getData(filePath1);
         Map<String, Object> newMap = getData(filePath2);
-        List<Map<String, Object>> diff = genDiff(oldMap, newMap);
+        Map<String, Diffs> diff = genDiff(oldMap, newMap);
         return Formatter.getFormatedString(diff, format);
 
     }
@@ -40,8 +43,8 @@ public class Differ {
         return Parser.parse(content, fileType);
     }
 
-    private static List<Map<String, Object>> genDiff(Map<String, Object> oldMap, Map<String, Object> newMap) {
-        List<Map<String, Object>> result = new ArrayList<>();
+    private static Map<String, Diffs> genDiff(Map<String, Object> oldMap, Map<String, Object> newMap) throws Exception {
+        Map<String, Diffs> result = new TreeMap<>();
         Set<String> generalKeySet = new TreeSet<>();
 
         Set<String> oldKeySet = oldMap.keySet();
@@ -51,31 +54,23 @@ public class Differ {
         generalKeySet.addAll(newKeySet);
 
         for (String key : generalKeySet) {
-            Map<String, Object> diffMap = new LinkedHashMap<>();
             Object oldValue = oldMap.get(key);
             Object newValue = newMap.get(key);
-            diffMap.put("key", key);
 
             if ((oldKeySet.contains(key)) && !(newKeySet.contains(key))) {
-                diffMap.put("oldValue", oldValue);
-                diffMap.put("changeType", "deleted");
+                result.put(key, new Diffs(DELETED, oldValue));
 
             } else if (!(oldKeySet.contains(key)) && (newKeySet.contains(key))) {
-                diffMap.put("newValue", newValue);
-                diffMap.put("changeType", "added");
+                result.put(key, new Diffs(ADDED, newValue));
 
             } else if ((oldKeySet.contains(key) && newKeySet.contains(key))
                     && !(Objects.deepEquals(oldValue, newValue))) {
-                diffMap.put("oldValue", oldValue);
-                diffMap.put("newValue", newValue);
-                diffMap.put("changeType", "changed");
+                result.put(key, new Diffs(CHANGED, oldValue, newValue));
 
             } else if ((oldKeySet.contains(key) && newKeySet.contains(key))
                     && (Objects.deepEquals(oldValue, newValue)))  {
-                diffMap.put("oldValue", oldValue);
-                diffMap.put("changeType", "unchanged");
+                result.put(key, new Diffs(UNCHANGED, oldValue));
             }
-            result.add(diffMap);
         }
 
         return result;

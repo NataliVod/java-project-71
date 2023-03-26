@@ -1,30 +1,31 @@
 package hexlet.code.formatters;
 
-
+import hexlet.code.Diffs;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class Plain {
-    public static String getPlainString(List<Map<String, Object>> diff) throws Exception {
+    public static String getPlainString(Map<String, Diffs> diff) throws Exception {
         StringBuilder result =  new StringBuilder();
 
-        for (var map : diff) {
-            String key = (String) map.get("key");
+        for (var pair : diff.entrySet()) {
+            Diffs changes = pair.getValue();
+            var key = pair.getKey();
+            var changeType = changes.getChangeType();
 
-            switch (map.get("changeType").toString()) {
+            switch (changeType) {
                 case "deleted" ->
                         result.append("Property '").append(key).append("' was removed").append("\n");
 
                 case "added" ->
                         result.append("Property '").append(key).append("' was added with value: ")
-                                .append(getPlainValue(map.get("newValue"))).append("\n");
+                                .append(getPlainValue(changes.getNewValue())).append("\n");
 
                 case "changed" ->
                         result.append("Property '").append(key).append("' was updated. From ")
-                                .append(getPlainValue(map.get("oldValue"))).append(" to ")
-                                .append(getPlainValue(map.get("newValue"))).append("\n");
+                                .append(getPlainValue(changes.getOldValue())).append(" to ")
+                                .append(getPlainValue(changes.getNewValue())).append("\n");
 
                 case "unchanged" -> {
                 }
