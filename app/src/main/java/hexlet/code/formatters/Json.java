@@ -9,11 +9,7 @@ import java.util.Map;
 public class Json {
     public static String getJsonString(Map<String, Diffs> diff) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        StringBuilder result = new StringBuilder();
-        for (var pair:diff.entrySet()) {
-            result.append(mapper.writeValueAsString(pair)).append("\n");
-        }
-        return result.toString().trim();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(diff);
     }
 
 }
