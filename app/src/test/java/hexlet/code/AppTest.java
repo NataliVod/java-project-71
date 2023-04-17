@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -10,11 +11,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AppTest {
 
-    private final String stylishExpected;
-    private final String plainExpected;
-    private final String jsonExpected;
 
-    {
+    private static String stylishExpected;
+    private static String plainExpected;
+    private static String jsonExpected;
+
+    @BeforeAll
+    static void prepareTextExpected() {
         try {
             String stylishPathString = "src/test/resources/fixtures/StylishExpected.txt";
             stylishExpected = getExpectedData(stylishPathString);
@@ -26,6 +29,7 @@ class AppTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public static String getExpectedData(String filePath) throws Exception {
