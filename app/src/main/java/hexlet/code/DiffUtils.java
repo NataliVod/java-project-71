@@ -13,19 +13,19 @@ import static hexlet.code.Diffs.UNCHANGED;
 
 public class DiffUtils {
 
-    public static Map<String, Diffs> genDiff(Map<String, Object> oldData, Map<String, Object> newData) throws Exception {
+    public static Map<String, Diffs> genDiff(Map<String, Object> prev, Map<String, Object> curr) throws Exception {
         Map<String, Diffs> result = new TreeMap<>();
         Set<String> overallKeys = new TreeSet<>();
 
-        Set<String> oldKeySet = oldData.keySet();
-        Set<String> newKeySet = newData.keySet();
+        Set<String> oldKeySet = prev.keySet();
+        Set<String> newKeySet = curr.keySet();
 
         overallKeys.addAll(oldKeySet);
         overallKeys.addAll(newKeySet);
 
         for (String key : overallKeys) {
-            Object oldValue = oldData.get(key);
-            Object newValue = newData.get(key);
+            Object oldValue = prev.get(key);
+            Object newValue = curr.get(key);
 
             if ((oldKeySet.contains(key)) && !(newKeySet.contains(key))) {
                 result.put(key, new Diffs(DELETED, oldValue));
