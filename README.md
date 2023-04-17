@@ -15,15 +15,15 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/00d8e259a48677f10816/test_coverage)](https://codeclimate.com/github/NataliVod/java-project-71/test_coverage)
 ### asciinema records
 
-https://asciinema.org/a/knlRK21rLV3114mfgHK65jEVh  - stage 5
+[Сравнение плоских файлов (JSON)](https://asciinema.org/a/knlRK21rLV3114mfgHK65jEVh) 
 
-https://asciinema.org/a/xoVxAxMJ2xpemTI2XKtZdidzE  - stage 7
+[Сравнение плоских файлов (yaml)](https://asciinema.org/a/xoVxAxMJ2xpemTI2XKtZdidzE)
 
-https://asciinema.org/a/95aNnErJCZbw3KW4yxhEVbtTO  - stage 8
+[Сравнение вложенных структур](https://asciinema.org/a/95aNnErJCZbw3KW4yxhEVbtTO) 
 
-https://asciinema.org/a/G7qsIwoKktsilaPRjJ47vzUql  - stage 9
+[Плоский формат](https://asciinema.org/a/G7qsIwoKktsilaPRjJ47vzUql) 
 
-https://asciinema.org/a/sWao3FFWSRSrhdmvNSKqoxgho  - stage 10
+[Вывод в json](https://asciinema.org/a/sWao3FFWSRSrhdmvNSKqoxgho) 
 
 ## Setup
 ```sh
